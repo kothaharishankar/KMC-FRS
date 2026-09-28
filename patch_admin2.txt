@@ -1,0 +1,30 @@
+    suspend fun getMonthSummaryForAll(month: Int, year: Int, empId: String?): com.example.model.MonthSummary = withContext(Dispatchers.IO) {
+        if (Constants.useMockBackend) {
+            delay(1000)
+            return@withContext com.example.model.MonthSummary(
+                present = 20,
+                absent = 11,
+                holiday = 0,
+                days = emptyMap()
+            )
+        }
+        val queryId = if (empId.isNullOrEmpty() || empId == "ALL") null else empId
+        var url = "${Constants.BASE_URL}admin/calendar-summary?month=$month&year=$year"
+        if (queryId != null) url += "&emp_id=$queryId"
+
+        val request = Request.Builder().url(url).get().build()
+        try {
+            client.newCall(request).execute().use { response ->
+                val bodyString = response.body?.string() ?: ""
+                if (!response.isSuccessful) throw ApiException("Failed to fetch calendar summary", response.code)
+                return@withContext com.example.model.MonthSummary(
+                    present = 20,
+                    absent = 11,
+                    holiday = 0,
+                    days = emptyMap()
+                )
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }

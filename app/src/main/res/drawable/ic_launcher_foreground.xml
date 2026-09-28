@@ -1,0 +1,78 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Glowing Scan Brackets -->
+    <path
+        android:pathData="M24,36 V24 H36"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M84,36 V24 H72"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M24,72 V84 H36"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M84,72 V84 H72"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+
+    <!-- Biometric Face Silhouette / Mask -->
+    <!-- Head/Face Outer Contour -->
+    <path
+        android:pathData="M54,28 C41.85,28 32,37.85 32,50 C32,58 35.5,63.5 39,67 L39,78 C39,80.2 40.8,82 43,82 H65 C67.2,82 69,80.2 69,78 L69,67 C72.5,63.5 76,58 76,50 C76,37.85 66.15,28 54,28 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineJoin="round"
+        android:fillColor="#2200F2FE" />
+
+    <!-- Landmark Points (Nodes) -->
+    <!-- Left Eye Landmark -->
+    <path
+        android:pathData="M45,46 A3,3 0,1,1 44.99,46"
+        android:fillColor="#00F2FE" />
+    <!-- Right Eye Landmark -->
+    <path
+        android:pathData="M63,46 A3,3 0,1,1 62.99,46"
+        android:fillColor="#00F2FE" />
+    <!-- Nose Landmark -->
+    <path
+        android:pathData="M54,54 A2.5,2.5 0,1,1 53.99,54"
+        android:fillColor="#00F2FE" />
+    <!-- Mouth Landmark -->
+    <path
+        android:pathData="M54,64 A3,3 0,1,1 53.99,64"
+        android:fillColor="#00F2FE" />
+
+    <!-- Landmark Connecting Lines -->
+    <path
+        android:pathData="M45,46 L54,54 L63,46 M45,46 L54,64 L63,46"
+        android:strokeColor="#5500F2FE"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+
+    <!-- Glowing Scan Line -->
+    <path
+        android:pathData="M18,54 H90"
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+</vector>

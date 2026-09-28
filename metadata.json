@@ -1,0 +1,6 @@
+{
+  "name": "KSCCL — Facial Attendance",
+  "description": "KSCCL Digital Attendance app with facial-recognition and GPS verification.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

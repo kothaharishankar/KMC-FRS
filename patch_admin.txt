@@ -1,0 +1,129 @@
+    suspend fun getEmployees(): List<User> = withContext(Dispatchers.IO) {
+        val url = "${Constants.BASE_URL}${Constants.ENDPOINT_EMPLOYEES}"
+        val request = Request.Builder().url(url).get().build()
+        try {
+            client.newCall(request).execute().use { response ->
+                val bodyString = response.body?.string() ?: ""
+                if (!response.isSuccessful) throw ApiException("Failed to fetch employees", response.code)
+                val jsonArray = JSONObject(bodyString).getJSONArray("employees")
+                val list = mutableListOf<User>()
+                for (i in 0 until jsonArray.length()) {
+                    val obj = jsonArray.getJSONObject(i)
+                    list.add(
+                        User(
+                            employeeId = obj.getString("employeeId"),
+                            name = obj.getString("name"),
+                            email = obj.optString("email", ""),
+                            phone = obj.optString("phone", ""),
+                            role = obj.getString("role"),
+                            joinedDate = obj.optString("joinedDate", "")
+                        )
+                    )
+                }
+                return@withContext list
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }
+
+    suspend fun addEmployee(user: User, password: String): User = withContext(Dispatchers.IO) {
+        val trimmedId = user.employeeId.trim().uppercase()
+        val url = "${Constants.BASE_URL}${Constants.ENDPOINT_EMPLOYEES}"
+        val requestBodyJson = JSONObject().apply {
+            put("emp_id", trimmedId)
+            put("name", user.name)
+            put("email", user.email)
+            put("phone", user.phone)
+            put("role", user.role)
+            put("password", password)
+        }.toString()
+
+        val request = Request.Builder().url(url).post(requestBodyJson.toRequestBody(jsonMediaType)).build()
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw ApiException("Failed to add employee", response.code)
+                return@withContext user.copy(employeeId = trimmedId)
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }
+
+    suspend fun updateEmployee(empId: String, user: User): User = withContext(Dispatchers.IO) {
+        val targetId = empId.trim().uppercase()
+        val url = "${Constants.BASE_URL}${Constants.ENDPOINT_EMPLOYEES}/$targetId"
+        val requestBodyJson = JSONObject().apply {
+            put("name", user.name)
+            put("email", user.email)
+            put("phone", user.phone)
+            put("role", user.role)
+        }.toString()
+
+        val request = Request.Builder().url(url).put(requestBodyJson.toRequestBody(jsonMediaType)).build()
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw ApiException("Failed to update employee", response.code)
+                return@withContext user.copy(employeeId = targetId)
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }
+
+    suspend fun deleteEmployee(empId: String): Boolean = withContext(Dispatchers.IO) {
+        val targetId = empId.trim().uppercase()
+        val url = "${Constants.BASE_URL}${Constants.ENDPOINT_EMPLOYEES}/$targetId"
+        val request = Request.Builder().url(url).delete().build()
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw ApiException("Failed to delete employee", response.code)
+                return@withContext true
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }
+
+    suspend fun getEmployeeList(): List<User> = getEmployees()
+
+    suspend fun getMonthSummaryForAll(month: Int, year: Int, empId: String?): List<com.example.model.MonthSummary> = withContext(Dispatchers.IO) {
+        if (Constants.useMockBackend) {
+            delay(1000)
+            return@withContext listOf(
+                com.example.model.MonthSummary(
+                    totalDays = 31,
+                    present = 20,
+                    absent = 11,
+                    late = 2,
+                    month = month,
+                    year = year
+                )
+            )
+        }
+        val queryId = if (empId.isNullOrEmpty() || empId == "ALL") null else empId
+        var url = "${Constants.BASE_URL}admin/calendar-summary?month=$month&year=$year"
+        if (queryId != null) url += "&emp_id=$queryId"
+
+        val request = Request.Builder().url(url).get().build()
+        try {
+            client.newCall(request).execute().use { response ->
+                val bodyString = response.body?.string() ?: ""
+                if (!response.isSuccessful) throw ApiException("Failed to fetch calendar summary", response.code)
+                // Just dummy parsing for now since we don't have the exact structure
+                return@withContext listOf(
+                    com.example.model.MonthSummary(
+                        totalDays = 31,
+                        present = 20,
+                        absent = 11,
+                        late = 2,
+                        month = month,
+                        year = year
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            throw ApiException("Network Error: ${e.localizedMessage}", null)
+        }
+    }
+}

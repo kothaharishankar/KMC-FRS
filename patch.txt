@@ -1,0 +1,40 @@
+65,92c
+        val url = "${Constants.BASE_URL}${Constants.ENDPOINT_LOGIN}"
+        val requestBodyJson = JSONObject().apply {
+            put("emp_id", trimmedId)
+            put("password", password)
+        }.toString()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBodyJson.toRequestBody(jsonMediaType))
+            .build()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                val bodyString = response.body?.string() ?: ""
+                if (!response.isSuccessful) {
+                    val errorMessage = try {
+                        JSONObject(bodyString).getString("error")
+                    } catch (e: Exception) {
+                        "HTTP login failed with status code ${response.code}"
+                    }
+                    throw ApiException(errorMessage, response.code)
+                }
+                
+                val responseJson = JSONObject(bodyString)
+                val token = responseJson.getString("token")
+                val userJson = responseJson.getJSONObject("user")
+                
+                val user = User(
+                    employeeId = userJson.getString("employeeId"),
+                    name = userJson.getString("name"),
+                    email = userJson.optString("email", ""),
+                    phone = userJson.optString("phone", ""),
+                    role = userJson.getString("role"),
+                    joinedDate = userJson.optString("joinedDate", "")
+                )
+                
+                return@withContext Pair(token, user)
+            }
+.

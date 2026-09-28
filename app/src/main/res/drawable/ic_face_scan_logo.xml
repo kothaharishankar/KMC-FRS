@@ -1,0 +1,102 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Dark high-tech circular background -->
+    <path
+        android:pathData="M100,10 A90,90 0,1,1 99.99,10"
+        android:fillColor="#0F172A" />
+
+    <!-- Circular scanning rings -->
+    <path
+        android:pathData="M100,20 A80,80 0,1,1 99.99,20"
+        android:strokeColor="#1E293B"
+        android:strokeWidth="2"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M100,30 A70,70 0,1,1 99.99,30"
+        android:strokeColor="#334155"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+
+    <!-- Glowing Corner Scanning Brackets -->
+    <path
+        android:pathData="M50,75 V55 H70"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M150,75 V55 H130"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M50,125 V145 H70"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M150,125 V145 H130"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+
+    <!-- Face Silhouette -->
+    <path
+        android:pathData="M100,60 C78,60 60,78 60,100 C60,114 66,124 72,130 L72,148 C72,152 75,155 79,155 H121 C125,155 128,152 128,148 L128,130 C134,124 140,114 140,100 C140,78 122,60 100,60 Z"
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="4"
+        android:strokeLineJoin="round"
+        android:fillColor="#1506B6D4" />
+
+    <!-- Landmark Points (Nodes) -->
+    <!-- Eyes -->
+    <path
+        android:pathData="M84,92 A5,5 0,1,1 83.99,92"
+        android:fillColor="#38BDF8" />
+    <path
+        android:pathData="M116,92 A5,5 0,1,1 115.99,92"
+        android:fillColor="#38BDF8" />
+    <!-- Nose -->
+    <path
+        android:pathData="M100,106 A4,4 0,1,1 99.99,106"
+        android:fillColor="#38BDF8" />
+    <!-- Mouth -->
+    <path
+        android:pathData="M100,124 A5,5 0,1,1 99.99,124"
+        android:fillColor="#38BDF8" />
+
+    <!-- Connecting Landmark Lines -->
+    <path
+        android:pathData="M84,92 L100,106 L116,92 M84,92 L100,124 L116,92"
+        android:strokeColor="#4438BDF8"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000" />
+
+    <!-- Horizontal Glowing Scan Line -->
+    <path
+        android:pathData="M40,100 H160"
+        android:strokeColor="#22D3EE"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- Tech Grid overlay (minimalist) -->
+    <path
+        android:pathData="M100,40 V160 M40,100 H160"
+        android:strokeColor="#1E293B"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+
+</vector>

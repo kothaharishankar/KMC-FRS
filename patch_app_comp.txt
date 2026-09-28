@@ -1,0 +1,11 @@
+                    // Beautiful Kakinada Smart City custom Logo graphic in a white rounded container
+                    Box(
+                        modifier = Modifier
+                            .padding(bottom = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        KakinadaSmartCityLogo(
+                            modifier = Modifier,
+                            showText = false
+                        )
+                    }
